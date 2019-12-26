@@ -1,0 +1,24 @@
+{
+  "name": "googlebooksearch",
+  "version": "1.0.0",
+  "description": "Allows the user to search for the book information",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisharding88/googleBookSearch.git"
+  },
+  "author": "Christopher Harding",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrisharding88/googleBookSearch/issues"
+  },
+  "homepage": "https://github.com/chrisharding88/googleBookSearch#readme"
+}
