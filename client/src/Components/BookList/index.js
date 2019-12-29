@@ -26,7 +26,6 @@ export function BookListItem({
                         <p>{description}</p>
                         <p>{date}</p>
                         <a href={link}>Click This Link</a>
-
                     </Col>
                 </Row>
             </Container>
