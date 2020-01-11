@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import API from "../utils/API";
-import {Col, Row, Container} from "../components/Grid";
-import {BookList, BookListItem} from "../components/BookList"
+import API from "../../Utils/API"
+import {Col, Row, Container} from "../../Components/Grid";
+import {BookList, BookListItem} from "../../Components/BookList"
 import {Link} from "react-router-dom";
-import DeleteBtn from "../components/Button"
+import DeleteBtn from "../../Components/Button"
+import Jumbotron from '../../Components/Jumbotron'
 
 class Saved extends Component {
 
@@ -17,13 +18,13 @@ componentDidMount(){
 }
 
 getSavedBooks = () => {
-    API.getSavedBooks()
+    API.getBooks()
       .then(res => this.setState({books: res.data}))
       .catch(err => console.log(err))
 }
 
 handleDeleteBook = id =>{
-    API.handleDeleteBook(id)
+    API.deleteBook(id)
     .then(res => this.getSavedBooks())
     .catch(err => console.log(err))
 }
@@ -37,15 +38,15 @@ render(){
             <Jumbotron>
                 <h1>Google Books Search</h1>
                 <p></p>
-                <LInk></LInk>
-                <LInk></LInk>
+                <Link type="button" className="btn btn-primary" >Saved</Link>
+                <Link type="button" className="btn btn-primary">Search</Link>
 
 
             </Jumbotron>
             {this.state.books.length ? (
                 <BookList>
                     {this.state.books.map(book => (
-                        <BookListItem>
+                        <BookListItem key={book._id}>
                             <Link to={`/books/${book._id}`}>
                                 <strong>
                                     {book.title} by {book.author}
@@ -58,20 +59,12 @@ render(){
                 </BookList>
             ): (
                 <h2>No more results left</h2>
-
-
-
             )}
             </Row>
          </Container>
 
         </div>
-
-
     )
-
-
-
 }
 
 

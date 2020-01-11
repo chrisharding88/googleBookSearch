@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import API from "../utils/API";
 import {Col, Row, Container} from "../components/Grid";
-import {BookList, BookListItem} from "../components/BookList"
-import {searchBar, searchBtn} from '../componens/SearchBar'
+import {BookList, BookListItem} from "./components/BookList"
+import {searchBar, searchBtn} from './componens/SearchBar'
 
 class Search extends Component{
     state = {
