@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import API from "../../Utils/API"
 import {Col, Row, Container} from "../../Components/Grid";
 import {BookList, BookListItem} from "../../Components/BookList"
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import DeleteBtn from "../../Components/Button"
 import Jumbotron from '../../Components/Jumbotron'
 
@@ -19,7 +19,8 @@ componentDidMount(){
 
 getSavedBooks = () => {
     API.getBooks()
-      .then(res => this.setState({books: res.data}))
+      .then(res => {this.setState({books: res.data})
+      console.log(res)})
       .catch(err => console.log(err))
 }
 
@@ -36,13 +37,10 @@ render(){
         <Container>
             <Row>
             <Jumbotron>
-                <h1>Google Books Search</h1>
-                <p></p>
-                <Link type="button" className="btn btn-primary" >Saved</Link>
-                <Link type="button" className="btn btn-primary">Search</Link>
-
-
+                <h1>Google Book Search</h1>
             </Jumbotron>
+            <Link type="button" className="btn btn-primary"to="/" >Saved</Link>
+            <Link type="button" className="btn btn-primary" to="/search">Search</Link>
             {this.state.books.length ? (
                 <BookList>
                     {this.state.books.map(book => (
@@ -76,4 +74,4 @@ render(){
 
 }
 
-export default Saved;
+export default withRouter(Saved);

@@ -1,9 +1,9 @@
 import React from 'react'
 import './styles.css'
 
-export function searchBtn (props) {
+export function SearchBtn (props) {
     return(
-    <button {...props} className = "btn btn-primary">{props.children}</button>
+        <button onClick={props.onClick} className="btn btn-primary">{props.buttonTitle}</button>
     )
 }
 

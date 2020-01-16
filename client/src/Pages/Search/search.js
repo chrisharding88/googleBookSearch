@@ -1,30 +1,22 @@
 import React, {Component} from "react";
-import API from "../utils/API";
-import {Col, Row, Container} from "../components/Grid";
-import {BookList, BookListItem} from "./components/BookList"
-import {searchBar, searchBtn} from './componens/SearchBar'
+import API from "../../Utils/API";
+import {Col, Row, Container} from "../../Components/Grid";
+import {SearchBar} from '../../Components/SearchBar/searchBar'
+import{SearchBtn} from '../../Components/SearchBar/searchButton'
+import Jumbotron from '../../Components/Jumbotron'
+import{Link, Redirect} from 'react-router-dom'
 
 class Search extends Component{
     state = {
-        title: ""
+        showBooks: [],
+        query: "",
+        displayResults:false
     }
-
-
-    componentDidMount() {
-        this.loadBooks();
-      }
-    
-      loadBooks = () => {
-        API.getBooks()
-          .then(res =>
-            this.setState({ books: res.data, title: "", author: "", synopsis: "" })
-          )
-          .catch(err => console.log(err));
-      };
     
      
     
       handleInputChange = event => {
+        console.log(event.target.name, event.target.value)
         const { name, value } = event.target;
         this.setState({
           [name]: value
@@ -33,41 +25,57 @@ class Search extends Component{
     
       handleFormSubmit = event => {
         event.preventDefault();
-        if (this.state.title && this.state.author) {
-          API.saveBook({
-            title: this.state.title,
-            author: this.state.author,
-            description: this.state.description
-          })
-            .then(res => this.loadBooks())
-            .catch(err => console.log(err));
-        }
+        if (this.state.query) {
+          const search = this.state.query.trim();
+          API.getGoogleBooksSearch(search)
+            .then(res => {
+              console.log(res.data.items)
+              this.setState({
+                displayResults: true,
+                showBooks: res.data.items
+              })
+        })     
+        .catch(err => console.log(err));
+      }
+
       };
 
 
 
       render() {
+
+        if (this.state.displayResults){
+          return<Redirect to={{
+            pathname: "/showBooks",
+            data:{results: this.state.displayResults}
+          }} />
+
+        }
+        
         return (
             <div>
-                <Container>
-                    <Row>
                     <Jumbotron>
                         <h1>Google Book Search</h1>
                         <h3></h3>
-                        <Link></Link>
-                        <Link></Link>
-                    </Jumbotron>
-                        <searchBar 
-                            value={this.state.title}
-                            onChange = {this.handleInputChange()}
+                        <Link type="button" className="btn btn-primary" to="/saved">Saved</Link>
+                        <Link type="button" className="btn btn-primary" to="/">Search</Link>
+                    </Jumbotron>                                 
+                <Container>
+                    <Row>
+                        <SearchBar 
+                            value={this.state.searchInput}
+                            onChange={this.handleInputChange}
                             name="title"
+                            placeholder="Search Book Title"
                         />
-                        <searchBtn 
-                            onClick = {this.handleFormSubmit()}
-                            className = "btn btn-primary"
+                        <SearchBtn 
+                            onClick={this.handleFormSubmit}
+                            className="btn btn-primary"
+                            buttonTitle="Search"
                         />
-                        
                     </Row>
+
+                    
                 </Container>
             </div>
 

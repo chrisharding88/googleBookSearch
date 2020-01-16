@@ -4,8 +4,11 @@
   "description": "Allows the user to search for the book information",
   "main": "server.js",
   "dependencies": {
+    "axios": "^0.19.1",
     "concurrently": "^5.0.2",
     "express": "^4.17.1",
+    "express-router": "0.0.1",
+    "if-env": "^1.0.4",
     "mongoose": "^5.8.7"
   },
   "devDependencies": {

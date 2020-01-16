@@ -1,7 +1,7 @@
 import React from "react";
 import './styles.css';
 
-export function SearchBtn (props){
+export function SaveBtn (props){
     return(
         <button className="Btn-Btn Primary" {...props} role="button">Search</button>
     )
