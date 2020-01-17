@@ -34,13 +34,14 @@ handleDeleteBook = id =>{
 render(){
     return(
         <div>
-        <Container>
-            <Row>
-            <Jumbotron>
-                <h1>Google Book Search</h1>
-            </Jumbotron>
+        
+                <Jumbotron>
+                     <h1>Google Book Search</h1>
+                </Jumbotron>
+           <Container>
             <Link type="button" className="btn btn-primary"to="/" >Saved</Link>
             <Link type="button" className="btn btn-primary" to="/search">Search</Link>
+            <Row>
             {this.state.books.length ? (
                 <BookList>
                     {this.state.books.map(book => (

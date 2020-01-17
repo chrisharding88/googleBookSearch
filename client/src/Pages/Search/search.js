@@ -4,7 +4,9 @@ import {Col, Row, Container} from "../../Components/Grid";
 import {SearchBar} from '../../Components/SearchBar/searchBar'
 import{SearchBtn} from '../../Components/SearchBar/searchButton'
 import Jumbotron from '../../Components/Jumbotron'
-import{Link, Redirect} from 'react-router-dom'
+import{Link} from 'react-router-dom'
+import {BookList, BookListItem} from '../../Components/BookList';
+import {SaveBtn} from '../../Components/Button'
 
 class Search extends Component{
     state = {
@@ -12,6 +14,7 @@ class Search extends Component{
         query: "",
         displayResults:false
     }
+     
     
      
     
@@ -35,31 +38,47 @@ class Search extends Component{
                 showBooks: res.data.items
               })
         })     
-        .catch(err => console.log(err));
+          .catch(err => console.log(err));
       }
 
       };
+
+   /*  saveBook = bookData => {
+             bookData = {
+             title: bookData.volumeInfo.title,
+             author:bookData.volumeInfo.authors[0],
+             description:bookData.volumeInfo.description,
+             image:bookData.volumeInfo.imageLinks.thumbnail ? bookData.volumeInfo.imageLinks.thumbnail : null,
+             date:bookData.volumeInfo.date,
+           }
+              console.log(this.state.showBooks);
+              console.log("Book Saved")
+            API.saveBook(bookData)
+            .then(res => {
+             const presentBooks = this.state.showBooks;
+             const filterBooks = presentBooks.filter(book => book.id !== res.data.id);
+             this.setState({showBooks: filterBooks})
+        })
+           .catch(err => console.log(err))
+     }*/
+    
+// Create a separate that will query the database that has your saved books.
+// In my search component, I need to remove the book that saved to the database from the DOM 
 
 
 
       render() {
 
-        if (this.state.displayResults){
-          return<Redirect to={{
-            pathname: "/showBooks",
-            data:{results: this.state.displayResults}
-          }} />
-
-        }
         
         return (
             <div>
                     <Jumbotron>
                         <h1>Google Book Search</h1>
                         <h3></h3>
-                        <Link type="button" className="btn btn-primary" to="/saved">Saved</Link>
-                        <Link type="button" className="btn btn-primary" to="/">Search</Link>
-                    </Jumbotron>                                 
+                     
+                    </Jumbotron>
+                    <Link type="button" className="btn btn-primary" to="/saved">Saved</Link>
+                    <Link type="button" className="btn btn-primary" to="/">Search</Link>                                 
                 <Container>
                     <Row>
                         <SearchBar 
@@ -74,7 +93,36 @@ class Search extends Component{
                             buttonTitle="Search"
                         />
                     </Row>
+                    <h2>Book Results</h2>
+                    <BookList>
+                        {this.state.showBooks.map((book, index) => (
+                        <div>   
+                         <BookListItem key={book.id}
+                            image={book.volumeInfo.imageLinks.thumbnail ? book.volumeInfo.imageLinks.thumbnail : null}
+                            title={book.volumeInfo.title}
+                            author={book.volumeInfo.authors[0]}
+                            description={book.volumeInfo.description}
+                            date={book.volumeInfo.date}
+                         
+                         /> 
+                   
+                          {/* <SaveBtn  
+                         key={book.id}
+                         onClick={this.saveBook(book)} 
+                      
+                      />   */}
+                    </div>                    
+                               
+                        )
 
+                       
+                               
+                        )}
+
+                        
+                    </BookList>
+
+                   
                     
                 </Container>
             </div>

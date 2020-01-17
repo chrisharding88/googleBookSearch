@@ -1,15 +1,15 @@
 import React from "react";
 import './styles.css';
 
-export function SaveBtn (props){
+export function SaveBtn (){
     return(
-        <button className="Btn-Btn Primary" {...props} role="button">Search</button>
+        <button className="Btn-Btn Primary" role="button">Save</button>
     )
 }
 
 export function DeleteBtn (props){
     return(
-        <button className="Btn-Btn Danger" {...props} role="button">Delete</button>
+        <button className="Btn-Btn Danger" role="button">X</button>
     )
 }
 
